@@ -20,7 +20,9 @@ public class RootApplicationContextConfig {
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.HSQL)
 				.addScript("db/sql/create-table.sql") 
-                .addScript("db/sql/insert-data.sql") 
+                .addScript("db/sql/insert-data.sql")
+                .addScript("db/sql/create-table-customers.sql")
+                .addScript("db/sql/insert-data-customers.sql")
                 .build();
 		return db;
 	}
