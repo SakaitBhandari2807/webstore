@@ -1,6 +1,7 @@
 package com.learning.webstore.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,19 @@ public class ProductServiceImpl implements ProductService{
 		return productRepository.getAllProducts();
 		
 	}
+
+	@Override
+	public List<Product> getAllProductsByCategory(String category) {
+		// TODO Auto-generated method stub
+		return productRepository.getAllProductsByCategory(category);
+	}
+
+	@Override
+	public List<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
+		// TODO Auto-generated method stub
+		return productRepository.getProductsByFilter(filterParams);
+	}
+	
 	
 	
 }

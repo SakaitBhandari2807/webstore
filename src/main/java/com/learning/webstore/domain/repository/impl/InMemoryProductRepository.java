@@ -60,4 +60,23 @@ public class InMemoryProductRepository implements ProductRepository{
 		jdbcTemplate.update(query, params);
 		
 	}
+
+	@Override
+	public List<Product> getAllProductsByCategory(String category) {
+		// TODO Auto-generated method stub
+		String sql="select * from products where category=:category";
+		Map<String,Object> params = new HashMap<>();
+		params.put("category",category);
+		return jdbcTemplate.query(sql,params, new ProductMapper());
+	}
+
+	@Override
+	public List<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
+		// TODO Auto-generated method stub
+		String sql = "select * from products where CATEGORY IN(:categories) and MANUFACTURER IN(:brands)";
+		return jdbcTemplate.query(sql,filterParams,new ProductMapper());
+		
+	}
+	
+	
 }
