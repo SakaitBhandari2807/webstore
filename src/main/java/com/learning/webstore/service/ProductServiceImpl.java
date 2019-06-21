@@ -51,6 +51,14 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return productRepository.getProductByID(productId);
 	}
+
+	@Override
+	public List<Product> getProductByCriteria(String category, Map<String, List<String>> params,
+			String brandName) {
+		// TODO Auto-generated method stub
+		return productRepository.getProductByAllCriteria(category, params, brandName);
+	}
+	
 	
 	
 	

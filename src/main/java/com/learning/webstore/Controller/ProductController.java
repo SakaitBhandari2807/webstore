@@ -52,4 +52,13 @@ class ProductController {
 		return "product";
 	}
 	
+	@RequestMapping("/products/{category}/{price}")
+	public String getProductByAllCriteria(Model model,
+			@PathVariable("category") String category,
+			@MatrixVariable(pathVar="price") Map<String,List<String>> params,
+			@RequestParam("brand") String brandName) {
+		System.out.println("params"+params);
+		model.addAttribute("products",productService.getProductByCriteria(category,params,brandName));
+		return "products";
+	}
 }

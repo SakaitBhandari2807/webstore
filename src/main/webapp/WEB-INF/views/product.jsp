@@ -1,6 +1,5 @@
-<%@ taglib prefix="c" 
-      uri="http://java.sun.com/jsp/jstl/core"%> 
- 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
       <html> 
       <head> 
       <meta http-equiv="Content-Type" content="text/html; 
@@ -34,9 +33,14 @@
                      ${product.category} 
                   </p> 
                   <p> 
-                     <strong>Availble units in stock </strong> :       ${product.unitsInStock} 
+                     <strong>Available units in stock </strong> :       ${product.unitsInStock} 
                   </p> 
-                  <h4>${product.unitPrice} USD</h4> 
+                  <h4>${product.unitPrice} USD</h4>
+                  <p>
+                  	<a href="<spring:url value="/market/products" />" class="btn btn-default">
+                  		<span class="glyphicon-hand-left glyphicon"></span>Back
+                  	</a>
+                  </p>
                   <p> 
                <a href="#" class="btn btn-warning btn-large"> 
                <span class="glyphicon-shopping-cart glyphicon">          </span> Order Now 
