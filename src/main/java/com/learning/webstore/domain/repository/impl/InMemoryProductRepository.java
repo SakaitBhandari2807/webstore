@@ -91,13 +91,13 @@ public class InMemoryProductRepository implements ProductRepository{
 	@Override
 	public List<Product> getProductByAllCriteria(String category, Map<String, List<String>> params, String brandName) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM PRODUCTS WHERE CATEGORY IN (:category) and MANUFACTURER IN(:brands)";
-		System.out.println("cate:"+category+" brand : "+brandName);
-		Map<String,String> values = new HashMap<>();
-		values.put("category",category);
-		values.put("brands",brandName);
+		String sql = "SELECT * FROM PRODUCTS WHERE CATEGORY IN (:category) and MANUFACTURER=:brands";
+		
+		Map<String,Object> vals  = new HashMap<>();
+		vals.put("category",category);
+		vals.put("brands",brandName);
 //		System.out.println(parms);
-		List<Product>results= jdbcTemplate.query(sql,values,new ProductMapper());
+		List<Product>results = jdbcTemplate.query(sql,vals,new ProductMapper());
 		System.out.println(results);
 		return results;
 	}

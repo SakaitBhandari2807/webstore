@@ -57,7 +57,7 @@ class ProductController {
 			@PathVariable("category") String category,
 			@MatrixVariable(pathVar="price") Map<String,List<String>> params,
 			@RequestParam("brand") String brandName) {
-		System.out.println("params"+params);
+//		System.out.println("params"+params);
 		model.addAttribute("products",productService.getProductByCriteria(category,params,brandName));
 		return "products";
 	}
