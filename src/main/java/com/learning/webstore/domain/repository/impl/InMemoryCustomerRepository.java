@@ -2,7 +2,9 @@ package com.learning.webstore.domain.repository.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -42,5 +44,22 @@ public class InMemoryCustomerRepository implements CustomerRepository{
 		
 	}
 
+	@Override
+	public void addCustomer(Customer customer) {
+		String sql = "INSERT INTO CUSTOMERS (id,name,address,number_of_orders_made) VALUES(:id,:name,:address,:noOfOrders)";
+		Map<String,Object> params = new HashMap<>();
+		System.out.println(customer.getCustomerId());
+		System.out.println(customer.getCustomerName());
+		System.out.println(customer.getCustomerAddress());
+		System.out.println(customer.getNoOfOrdersMade());
+		params.put("name", customer.getCustomerName());
+		params.put("id",customer.getCustomerId());
+		params.put("address", customer.getCustomerAddress());
+		params.put("noOfOrders",customer.getNoOfOrdersMade());
+		System.out.println(params);
+		jdbcTemplate.update(sql,params);
+	}
+
+	
 	
 }
