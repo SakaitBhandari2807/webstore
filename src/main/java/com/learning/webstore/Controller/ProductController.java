@@ -10,6 +10,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +28,10 @@ class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	@InitBinder
+	public void InitialiseBinder(WebDataBinder binder) {
+		binder.setAllowedFields("productId","productName","unitPrice","description","manufacturer","category","unitsInStock","condition");
+	}
 	@RequestMapping("/products")
 	public String list(Model model) {
 		model.addAttribute("products",productService.getAllProducts());
@@ -73,7 +81,11 @@ class ProductController {
 	}
 	
 	@RequestMapping(value="/products/add",method=RequestMethod.POST)
-	public String processAddnewProductForm(@ModelAttribute("newProduct") Product product) {
+	public String processAddnewProductForm(@ModelAttribute("newProduct") Product product,BindingResult result) {
+		String[] suppressedFields = result.getSuppressedFields();
+		   if (suppressedFields.length > 0) {
+		      throw new RuntimeException("Attempting to bind disallowed fields: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+		   }
 		productService.addProduct(product);
 		return "redirect:/market/products";
 	}
