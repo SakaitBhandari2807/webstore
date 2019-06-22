@@ -1,6 +1,7 @@
 package com.learning.webstore.Controller;
 
 
+import com.learning.webstore.domain.Product;
 import com.learning.webstore.service.ProductService;
 
 import java.util.List;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.MatrixVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -61,4 +64,18 @@ class ProductController {
 		model.addAttribute("products",productService.getProductByCriteria(category,params,brandName));
 		return "products";
 	}
+	
+	@RequestMapping(value="/products/add",method=RequestMethod.GET)
+	public String getAddNewProductForm(Model model) {
+		Product product = new Product();
+		model.addAttribute("newProduct",product);
+		return "addProduct";
+	}
+	
+	@RequestMapping(value="/products/add",method=RequestMethod.POST)
+	public String processAddnewProductForm(@ModelAttribute("newProduct") Product product) {
+		productService.addProduct(product);
+		return "redirect:/market/products";
+	}
+	
 }

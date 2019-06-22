@@ -16,7 +16,7 @@ public class Product implements Serializable{
 	private BigDecimal unitPrice;
 	
 	public Product() {
-		super();
+//		super();
 	}
 
 	public Product(String productId, String productName, BigDecimal unitPrice) {
